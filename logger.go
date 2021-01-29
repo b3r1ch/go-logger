@@ -35,7 +35,7 @@ type LoggerAbstract interface {
 
 var adapters = make(map[string]adapterLoggerFunc)
 
-var levelStringMapping = map[int]string{
+var LevelStringMapping = map[int]string{
 	LOGGER_LEVEL_EMERGENCY: "Emergency",
 	LOGGER_LEVEL_ALERT:     "Alert",
 	LOGGER_LEVEL_CRITICAL:  "Critical",
@@ -216,7 +216,7 @@ func (logger *Logger) Writer(level int, msg string) error {
 	}
 	_, filename := path.Split(file)
 
-	if levelStringMapping[level] == "" {
+	if LevelStringMapping[level] == "" {
 		printError("logger: level " + strconv.Itoa(level) + " is illegal!")
 	}
 
@@ -226,7 +226,7 @@ func (logger *Logger) Writer(level int, msg string) error {
 		Millisecond:       time.Now().UnixNano() / 1e6,
 		MillisecondFormat: time.Now().Format("2006-01-02 15:04:05.999"),
 		Level:             level,
-		LevelString:       levelStringMapping[level],
+		LevelString:       LevelStringMapping[level],
 		Body:              msg,
 		File:              filename,
 		Line:              line,
